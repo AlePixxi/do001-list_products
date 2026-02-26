@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "list-products:$BUILD_NUMBER"
+        IMAGE_NAME = "list-products:$BRANCH_NAME.$BUILD_NUMBER"
     }
 
     stages {
@@ -11,27 +11,14 @@ pipeline {
                 checkout scm
             }
         }
-        stage('Build Maven') {
-            steps {
-                sh 'mvn -B clean package -DskipTests'
-            }
-        }
-        stage('Test') {
-            steps {
-                sh 'mvn test'
-            }
-        }
         stage('Build Docker Image') {
             steps {
-                script {
-                    docker.build(env.IMAGE_NAME, '-f dockerfile .')
-                }
+                sh "docker build -t ${IMAGE_NAME} ."
             }
         }
     }
     post {
         always {
-            junit '**/target/surefire-reports/*.xml'
             cleanWs()
         }
     }
