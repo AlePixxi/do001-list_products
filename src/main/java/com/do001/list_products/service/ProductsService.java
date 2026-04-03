@@ -17,4 +17,7 @@ public class ProductsService {
         return productsRepository.findAll();
     }
     
+    public Iterable<Product> getProductsByCategory(String category) {
+        return productsRepository.findByCategory(category);
+    }
 }

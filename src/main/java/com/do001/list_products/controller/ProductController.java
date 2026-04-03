@@ -2,6 +2,7 @@ package com.do001.list_products.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.do001.list_products.entity.Product;
@@ -20,6 +21,11 @@ public class ProductController {
     @GetMapping("/list-products")
     public Iterable<Product> getAllProducts() {
         return productsService.getAllProducts();
+    }
+
+    @GetMapping("/list-products-by-category")
+    public Iterable<Product> getProductsbyCategory(@RequestParam String category) {
+        return productsService.getProductsByCategory(category);
     }
     
 }

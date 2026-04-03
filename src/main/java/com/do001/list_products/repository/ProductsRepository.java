@@ -1,10 +1,11 @@
 package com.do001.list_products.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import java.util.List;
+
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.do001.list_products.entity.Product;
 
-public interface ProductsRepository extends CrudRepository<Product, Integer>{
-
-    
+public interface ProductsRepository extends MongoRepository<Product, String>{
+    List<Product> findByCategory(String category);    
 }
